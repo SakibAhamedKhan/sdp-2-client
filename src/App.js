@@ -6,6 +6,11 @@ import Signup from './Pages/LoginSignup/Signup/Signup';
 import Home from './Pages/Home/Home';
 import UserDashboard from './Pages/User/UserDashboard/UserDashboard';
 import PoliceDashboard from './Pages/Police/PoliceDashboard/PoliceDashboard';
+import RequireAuth from './Pages/Shared/RequireAuth/RequireAuth';
+import Profile2 from './Pages/Police/Profile/Profile';
+import Profile1 from './Pages/User/Profile/Profile';
+import Register2 from './Pages/Police/Register/Register';
+
 
 function App() {
   return (
@@ -16,12 +21,40 @@ function App() {
         <Route path='/signup' element={<Signup></Signup>}></Route>
 
         {/* user */}
-        <Route path='/userDashboard' element={<UserDashboard></UserDashboard>}></Route>
+        <Route path='/userDashboard' element={
+          <RequireAuth>
+            <UserDashboard></UserDashboard>
+          </RequireAuth>
+        }></Route>
+
+        <Route path='/userProfile' element={
+          <RequireAuth>
+            <Profile1></Profile1>
+          </RequireAuth>
+        }></Route>
 
 
 
         {/* police */}
-        <Route path='/policeDashboard' element={<PoliceDashboard></PoliceDashboard>}></Route>
+        <Route path='/policeDashboard' element={
+          <RequireAuth>
+            <PoliceDashboard></PoliceDashboard>
+          </RequireAuth>
+        }></Route>
+
+        <Route path='/policeProfile' element={
+          <RequireAuth>
+            <Profile2></Profile2>
+          </RequireAuth>
+        }></Route>
+
+        <Route path='/policeRegister' element={
+          <RequireAuth>
+            <Register2></Register2>
+          </RequireAuth>
+        }></Route>
+
+        
       </Routes>
     </div>
   );

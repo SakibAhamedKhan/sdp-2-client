@@ -1,9 +1,11 @@
 import React from 'react';
+import PoliceNavbar from './PoliceNavbar';
 
 const PoliceDashboard = () => {
 	return (
 		<div>
-			<h2>Welcome to Police Dashboard</h2>
+			<PoliceNavbar></PoliceNavbar>
+			
 		</div>
 	);
 };

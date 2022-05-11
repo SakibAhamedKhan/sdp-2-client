@@ -59,7 +59,7 @@ const Signup = () => {
 		<div className='my-20'>
 			<form onSubmit={handleSubmit} style={{
 				boxShadow: 'rgba(0, 0, 0, 0.16) 0px 1px 4px'
-			}} className='w-96 mx-auto bg-white p-8 rounded-xl'>
+			}} className='w-72 md:w-96 lg:w-96 mx-auto bg-white p-8 rounded-xl'>
 				<h2 className='text-center text-xl mb-4 font-bold' >Sign up Now!</h2>
 				<div class="form-control">
 					<label class="label">
