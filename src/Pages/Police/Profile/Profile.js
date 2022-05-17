@@ -17,16 +17,16 @@ const Profile = () => {
 	return (
 		<div>
 			<PoliceNavbar></PoliceNavbar>
-			<h2 className='text-center text-2xl my-10 font-semibold'>Your Profile</h2>
+			<h2 className='text-center text-3xl my-10 font-semibold'>Your Profile</h2>
 
 			<div className='mx-4'>
 				<div class="card  md:w-fit lg:w-fit bg-white shadow-xl mx-auto p-6 md:p-10 lg:p-10">
 				{
 						user?
 						<>
-							<p className='mb-2 sm:text-center md:text-left lg:text-left break-words'><span className='font-semibold'>Your Name:</span> {name}</p>
-							<p className='mb-2 sm:text-center md:text-left lg:text-left break-words'><span className='font-semibold'>Your Email:</span> {user.email}</p>
-							<p className='mb-2 sm:text-center md:text-left lg:text-left break-words'><span className='font-semibold'>Account Type:</span> {accountType}</p>
+							<p className='mb-2 sm:text-center md:text-left lg:text-left break-words text-2xl'><span className='font-semibold'>Your Name:</span> {name}</p>
+							<p className='mb-2 sm:text-center md:text-left lg:text-left break-words text-2xl'><span className='font-semibold'>Your Email:</span> {user.email}</p>
+							<p className='mb-2 sm:text-center md:text-left lg:text-left break-words text-2xl'><span className='font-semibold'>Account Type:</span> {accountType}</p>
 							<button onClick={() => {
 								signOut(auth);
 							}} className='btn btn-primary w-fit mx-auto mt-5 text-white'>Log out</button>

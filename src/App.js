@@ -10,6 +10,7 @@ import RequireAuth from './Pages/Shared/RequireAuth/RequireAuth';
 import Profile2 from './Pages/Police/Profile/Profile';
 import Profile1 from './Pages/User/Profile/Profile';
 import Register2 from './Pages/Police/Register/Register';
+import PoliceRegisteredDetails from './Pages/Police/PoliceRegisteredDetails/PoliceRegisteredDetails';
 
 
 function App() {
@@ -51,6 +52,11 @@ function App() {
         <Route path='/policeRegister' element={
           <RequireAuth>
             <Register2></Register2>
+          </RequireAuth>
+        }></Route>
+        <Route path='/policeRegisterDetails' element={
+          <RequireAuth>
+            <PoliceRegisteredDetails></PoliceRegisteredDetails>
           </RequireAuth>
         }></Route>
 
