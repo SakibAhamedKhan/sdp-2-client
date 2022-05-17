@@ -4,6 +4,7 @@ const useIsPoliceRegistered = (user) => {
 	const [registered, setRegistered] = useState(false);
 	const [policeRegisteredInfo, setPoliceRegisteredInfo] = useState({});
 	const [policeRegLoading, setPoliceRegLoading] = useState(true);
+	const [refresh, setRefresh] = useState('');
 	useEffect( () => {
 		fetch(`http://localhost:5000/policeRegister/${user?.email}`)
 		.then(res => res.json())
@@ -11,13 +12,14 @@ const useIsPoliceRegistered = (user) => {
 			if(data){
 				setRegistered(true);
 				setPoliceRegisteredInfo(data);
-				setPoliceRegLoading(false);
+				
 			}
+			setPoliceRegLoading(false);
 		})
-	},[user]);
+	},[user, refresh]);
 
 
-	return [registered, policeRegisteredInfo, policeRegLoading];
+	return [registered, policeRegisteredInfo, policeRegLoading, setRefresh];
 }
 
 export default useIsPoliceRegistered;

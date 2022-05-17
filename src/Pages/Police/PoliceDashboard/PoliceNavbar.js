@@ -33,7 +33,7 @@ const PoliceNavbar = () => {
 	</>
 	
 	return (
-		<div class="navbar bg-white" style={{
+		<div class="navbar bg-white/80 z-50 backdrop-blur sticky top-0" style={{
 			boxShadow: `rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.06) 0px 1px 2px 0px`
 		}}>
 			<div class="navbar-start">

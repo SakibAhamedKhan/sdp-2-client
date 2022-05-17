@@ -19,7 +19,7 @@ const PoliceDashBanner = () => {
 	}
 	return (
 		<div class="hero min-h-screen" style={{backgroundImage: `url(${banner3})`}}>
-			<div class="hero-overlay bg-opacity-60"></div>
+			<div class="hero-overlay bg-opacity-45"></div>
 			<div class="hero-content text-center text-neutral-content">
 				<div class="max-w-md">
 					

@@ -11,6 +11,8 @@ import Profile2 from './Pages/Police/Profile/Profile';
 import Profile1 from './Pages/User/Profile/Profile';
 import Register2 from './Pages/Police/Register/Register';
 import PoliceRegisteredDetails from './Pages/Police/PoliceRegisteredDetails/PoliceRegisteredDetails';
+import Footer from './Pages/Shared/Footer/Footer';
+import Thana from './Pages/User/Thana/Thana';
 
 
 function App() {
@@ -31,6 +33,12 @@ function App() {
         <Route path='/userProfile' element={
           <RequireAuth>
             <Profile1></Profile1>
+          </RequireAuth>
+        }></Route>
+
+        <Route path='/thana' element={
+          <RequireAuth>
+            <Thana></Thana>
           </RequireAuth>
         }></Route>
 
@@ -62,6 +70,7 @@ function App() {
 
         
       </Routes>
+      <Footer></Footer>
     </div>
   );
 }

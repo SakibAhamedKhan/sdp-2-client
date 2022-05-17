@@ -55,7 +55,7 @@ const Register = () => {
 		<div>
 			<PoliceNavbar></PoliceNavbar>
 			
-				<div class="card w-3/4 md:w-3/5 lg:w-2/5 bg-white shadow-xl mx-auto my-10">
+				<div class="card w-3/4 md:w-3/5 lg:w-2/5 bg-white shadow-xl mx-auto mt-10 mb-20">
 					<h2 className='text-center text-primary text-2xl font-bold mt-5'>Register</h2>
 					<div className='mt-5 mb-7'>
 						<form className='grid grid-cols-1 gap-y-4 justify-items-center items-center px-4' onSubmit={handleSubmit}>
