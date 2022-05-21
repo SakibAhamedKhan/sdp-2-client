@@ -39,7 +39,7 @@ const PoliceRegisteredDetails = () => {
 		}
 		event.target.reset();
 		setClose(false);
-		fetch('http://localhost:5000/policeRegister', {
+		fetch('https://limitless-tor-92243.herokuapp.com/policeRegister', {
 			method:'PUT',
 			headers: {
 				'content-type': 'application/json'

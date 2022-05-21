@@ -6,7 +6,7 @@ const useIsPoliceRegistered = (user) => {
 	const [policeRegLoading, setPoliceRegLoading] = useState(true);
 	const [refresh, setRefresh] = useState('');
 	useEffect( () => {
-		fetch(`http://localhost:5000/policeRegister/${user?.email}`)
+		fetch(`https://limitless-tor-92243.herokuapp.com/policeRegister/${user?.email}`)
 		.then(res => res.json())
 		.then(data => {
 			if(data){
