@@ -13,6 +13,7 @@ import Register2 from './Pages/Police/Register/Register';
 import PoliceRegisteredDetails from './Pages/Police/PoliceRegisteredDetails/PoliceRegisteredDetails';
 import Footer from './Pages/Shared/Footer/Footer';
 import Thana from './Pages/User/Thana/Thana';
+import ThanaDetails from './Pages/User/Thana/ThanaDetails';
 
 
 function App() {
@@ -41,6 +42,13 @@ function App() {
             <Thana></Thana>
           </RequireAuth>
         }></Route>
+
+        <Route path='/thanaDetails/:thana_id' element={
+          <RequireAuth>
+            <ThanaDetails></ThanaDetails>
+          </RequireAuth>
+        }></Route>
+
 
 
 

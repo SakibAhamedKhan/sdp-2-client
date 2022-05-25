@@ -100,7 +100,7 @@ const PoliceRegisteredDetails = () => {
 							<select name='thana' class="select select-bordered w-full max-w-xs text-slate-500" required>
 								<option value='' className='text-slate-300' >Thana</option>
 								<option value='Chandgaon'>Chandgaon</option>
-								<option value='Chandgaon'>Chandgaon</option>
+								<option value='Bondor'>Bondor</option>
 								<option value='Double Mooring'>Double Mooring</option>
 								<option value='Patenga'>Patenga</option>
 								<option value='Kotwali'>Kotwali</option>
