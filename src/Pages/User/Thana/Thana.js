@@ -7,7 +7,7 @@ const Thana = () => {
 	const navigate = useNavigate();
 
 	useEffect( () => {
-		fetch('http://localhost:5000/thana')
+		fetch('https://limitless-tor-92243.herokuapp.com/thana')
 		.then(res => res.json())
 		.then(data => {
 			setThana(data);

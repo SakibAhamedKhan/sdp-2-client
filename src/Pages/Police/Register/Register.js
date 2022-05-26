@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PoliceNavbar from '../PoliceDashboard/PoliceNavbar';
 import auth from '../../../firebase.init';
 import { useAuthState } from 'react-firebase-hooks/auth';
@@ -9,6 +9,15 @@ import { async } from '@firebase/util';
 const Register = () => {
 	const [user, loading, error] = useAuthState(auth);
 	const navigate = useNavigate();
+	const [uploading, setUploading] = useState(false);
+
+	const image_key = '0cd588ba1e152646a09f8f7beda7931c';
+	let photo;
+	const handleFile = event => {
+		console.log(event.target.files[0]);
+		photo = event.target.files[0];
+		
+	}
 
 	const handleSubmit = event => {
 		event.preventDefault();
@@ -18,38 +27,58 @@ const Register = () => {
 		const thana = event.target.thana.value;
 		const phone = event.target.phone.value;
 		console.log(name, rangId, responsibility, thana, phone);
-		const doc = {
-			name,
-			rangId, 
-			responsibility,
-			thana,
-			phone,
-			email: user?.email
-		}
-		fetch('https://limitless-tor-92243.herokuapp.com/policeRegister', {
-			method:'POST',
-			headers: {
-				'content-type': 'application/json'
-			},
-			body: JSON.stringify(doc)
+		
+
+		const formData = new FormData();
+		formData.append('image', photo);
+		console.log(formData);
+		fetch(`https://api.imgbb.com/1/upload?key=${image_key}`,{
+			method: 'POST',
+			body: formData
 		})
 		.then(res => res.json())
-		.then(async(data) => {
-			if(data) {
-			await Swal.fire(
-					'Good job!',
-					'Your Registration is Done',
-					'success'
-				  )
-			} else{
-			await Swal.fire(
-					'Ops',
-					'You have already Registered',
-					'error'
-				  )
+		.then(data => {
+			if(data.success){
+				console.log(data);
+				const img = data.data.url;
+				const doc = {
+					name,
+					rangId, 
+					responsibility,
+					thana,
+					phone,
+					email: user?.email,
+					image: img
+				}
+				fetch('https://limitless-tor-92243.herokuapp.com/policeRegister', {
+					method:'POST',
+					headers: {
+						'content-type': 'application/json'
+					},
+					body: JSON.stringify(doc)
+				})
+				.then(res => res.json())
+				.then(async(data) => {
+					if(data) {
+					await Swal.fire(
+							'Good job!',
+							'Your Registration is Done',
+							'success'
+						  )
+					} else{
+					await Swal.fire(
+							'Ops',
+							'You have already Registered',
+							'error'
+						  )
+					}
+					navigate('/policeDashboard');
+					setUploading(false);
+				});
 			}
-			navigate('/policeDashboard');
-		});
+			setUploading(false);
+		})
+
 	}
 	return (
 		<div>
@@ -73,7 +102,7 @@ const Register = () => {
 							<select name='thana' class="select select-bordered w-full max-w-xs text-slate-500" required>
 								<option value='' className='text-slate-300' >Thana</option>
 								<option value='Chandgaon'>Chandgaon</option>
-								<option value='Chandgaon'>Chandgaon</option>
+								<option value='Bondor'>Bondor</option>
 								<option value='Double Mooring'>Double Mooring</option>
 								<option value='Patenga'>Patenga</option>
 								<option value='Kotwali'>Kotwali</option>
@@ -85,6 +114,7 @@ const Register = () => {
 								<option value='Khulshi'>Khulshi</option>
 							</select>
 							<input name='phone' type="number" placeholder="Your Phone Number" class="input input-bordered w-full max-w-xs"  required/>
+							<input onBlur={handleFile} type="file" placeholder="tool photo" class="input input-bordered w-full max-w-xs mb-3 h-14 pt-3"/>
 							<input name='' type="submit" value="Submit" className='btn btn-primary text-white px-5'  required/>
 						</form>
 					</div>

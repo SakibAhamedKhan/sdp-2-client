@@ -13,12 +13,21 @@ const PoliceRegisteredDetails = () => {
 	const [registered,policeRegisteredInfo, policeRegLoading, setRefresh] = useIsPoliceRegistered(user);
 	const [close, setClose] = useState(false);
 	const navigate = useNavigate();
+	const [uploading, setUploading] = useState(false);
 	
 	// console.log(policeRegisteredInfo);
 	if(loading || policeRegLoading) {
 		return <div className='w-screen h-screen flex justify-center items-center'>
 			<Loading></Loading>
 		</div>;
+	}
+
+	const image_key = '0cd588ba1e152646a09f8f7beda7931c';
+	let photo;
+	const handleFile = event => {
+		console.log(event.target.files[0]);
+		photo = event.target.files[0];
+		
 	}
 
 	const handleSubmit =async event => {
@@ -29,36 +38,57 @@ const PoliceRegisteredDetails = () => {
 		const thana = event.target.thana.value;
 		const phone = event.target.phone.value;
 		console.log(name, rangId, responsibility, thana, phone);
-		const doc = {
-			name,
-			rangId, 
-			responsibility,
-			thana,
-			phone,
-			email: user?.email
-		}
-		event.target.reset();
-		setClose(false);
-		fetch('https://limitless-tor-92243.herokuapp.com/policeRegister', {
-			method:'PUT',
-			headers: {
-				'content-type': 'application/json'
-			},
-			body: JSON.stringify(doc)
+
+		const formData = new FormData();
+		formData.append('image', photo);
+		console.log(formData);
+		fetch(`https://api.imgbb.com/1/upload?key=${image_key}`,{
+			method: 'POST',
+			body: formData
 		})
 		.then(res => res.json())
-		.then(async(data) => {
-			if(data) {
-			await Swal.fire(
-					'Hurrah!',
-					'Your Registration is updated',
-					'success'
-				  )
-			} 
-			setRefresh(new Date().getTime());
-			// navigate('/policeRegisterDetails');
-		});
+		.then(data => {
+			if(data.success){
+				console.log('update data: ',data);
+				const img = data.data.url;
+				const doc = {
+					name,
+					rangId, 
+					responsibility,
+					thana,
+					phone,
+					email: user?.email,
+					image: img
+				}
+				event.target.reset();
+				setClose(false);
+				fetch('https://limitless-tor-92243.herokuapp.com/policeRegister', {
+					method:'PUT',
+					headers: {
+						'content-type': 'application/json'
+					},
+					body: JSON.stringify(doc)
+				})
+				.then(res => res.json())
+				.then(async(data) => {
+					if(data) {
+					await Swal.fire(
+							'Hurrah!',
+							'Your Registration is updated',
+							'success'
+						  )
+					} 
+					setRefresh(new Date().getTime());
+					setUploading(false);
+					// navigate('/policeRegisterDetails');
+				});
+		
+			}
+			setUploading(false);
+		})
 
+
+		
 	}
 
 	return (
@@ -67,7 +97,13 @@ const PoliceRegisteredDetails = () => {
 			<h2 className='text-center text-3xl my-10 font-semibold'>Police Registerd Details</h2>
 			<div className='mx-4 mb-20'>
 				<div class="card  md:w-fit lg:w-fit bg-white shadow-xl mx-auto p-6 md:p-10 lg:p-10">
-				
+
+				<div class="avatar mx-auto mb-5">
+					<div class="w-24 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
+						<img src={policeRegisteredInfo.image} />
+					</div>
+				</div>
+
 					<p className='mb-4 mx-3 md:mx-10 lg:mx-10 text-center md:text-left lg:text-left break-words text-2xl'><span className='font-semibold'>Your Name: </span>{policeRegisteredInfo.name}</p>
 					<p className='mb-4 mx-3 md:mx-10 lg:mx-10 text-center md:text-left lg:text-left break-words text-2xl'><span className='font-semibold'>Range ID: </span>{policeRegisteredInfo.rangId}</p>
 					<p className='mb-4 mx-3 md:mx-10 lg:mx-10 text-center md:text-left lg:text-left break-words text-2xl'><span className='font-semibold'>Responsibility: </span>{policeRegisteredInfo.responsibility}</p>
@@ -112,7 +148,7 @@ const PoliceRegisteredDetails = () => {
 								<option value='Khulshi'>Khulshi</option>
 							</select>
 							<input name='phone' type="number" placeholder="Your Phone Number" class="input input-bordered w-full max-w-xs"  required/>
-							
+							<input onBlur={handleFile} type="file" placeholder="tool photo" class="input input-bordered w-full max-w-xs mb-3 h-14 pt-3" />
 							<div className='flex justify-center'>
 								<label onClick={() => setClose(false)} for="my-modal-3" class="btn bg-red-500 border-none text-white mr-2 w-28">Cancel</label>
 								<input name='' type="submit" value="Update" className='btn btn-primary text-white px-5'  required/>
