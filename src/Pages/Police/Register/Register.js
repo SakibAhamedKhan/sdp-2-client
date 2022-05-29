@@ -50,7 +50,7 @@ const Register = () => {
 					email: user?.email,
 					image: img
 				}
-				fetch('https://limitless-tor-92243.herokuapp.com/policeRegister', {
+				fetch('http://localhost:5000/policeRegister', {
 					method:'POST',
 					headers: {
 						'content-type': 'application/json'
@@ -59,20 +59,27 @@ const Register = () => {
 				})
 				.then(res => res.json())
 				.then(async(data) => {
-					if(data) {
-					await Swal.fire(
-							'Good job!',
-							'Your Registration is Done',
-							'success'
+					if(data.found) {
+						await Swal.fire(
+							'Ops!',
+							'Your Range ID is already Registered!',
+							'error'
 						  )
-					} else{
+					} else if(data.AlreadyReg){
 					await Swal.fire(
 							'Ops',
 							'You have already Registered',
 							'error'
 						  )
+					} else{
+						await Swal.fire(
+							'Good job!',
+							'Your Registration is Done',
+							'success'
+						  )
+						  navigate('/policeDashboard');
 					}
-					navigate('/policeDashboard');
+					
 					setUploading(false);
 				});
 			}
