@@ -50,7 +50,7 @@ const Register = () => {
 					email: user?.email,
 					image: img
 				}
-				fetch('http://localhost:5000/policeRegister', {
+				fetch('https://limitless-tor-92243.herokuapp.com/policeRegister', {
 					method:'POST',
 					headers: {
 						'content-type': 'application/json'
